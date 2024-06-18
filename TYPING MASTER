@@ -1,0 +1,62 @@
+import time
+import random
+
+def get_random_sentence():
+  """
+  Returns a random sentence from a list of predefined sentences.
+  """
+  sentences = [
+    "The quick brown fox jumps over the lazy dog.",
+    "Python is a powerful and versatile programming language.",
+    "Practice makes perfect, so keep typing!",
+    "This is a fun way to improve your typing skills.",
+    "Let's see how fast and accurate you can type!"
+  ]
+  return random.choice(sentences)
+
+def calculate_wpm(words, time_taken):
+  """
+  Calculates words per minute (WPM) based on the number of words typed and time taken.
+  """
+  return (words / 5) / (time_taken / 60)
+
+def main():
+  """
+  Runs the main loop of the typing test.
+  """
+  while True:
+    # Get a random sentence to type
+    sentence = get_random_sentence()
+
+    # Print the sentence and start timer
+    print(sentence)
+    start_time = time.time()
+
+    # Get user input
+    typed_sentence = input("Type the sentence and press Enter: ")
+
+    # Stop timer and calculate elapsed time
+    end_time = time.time()
+    time_taken = end_time - start_time
+
+    # Calculate words typed (excluding spaces)
+    words = len(sentence.split())
+
+    # Calculate WPM and accuracy
+    wpm = calculate_wpm(words, time_taken)
+    accuracy = 100 * (sum(c1 == c2 for c1, c2 in zip(sentence, typed_sentence)) / len(sentence))
+
+    # Print results
+    print("-" * 30)
+    print(f"WPM: {wpm:.2f}")
+    print(f"Accuracy: {accuracy:.2f}%")
+    print("-" * 30)
+
+    # Ask user if they want to play again
+    play_again = input("Play again? (y/n): ").lower()
+    if play_again != "y":
+      print("Thanks for playing!")
+      break
+
+if __name__ == "__main__":
+  main()
