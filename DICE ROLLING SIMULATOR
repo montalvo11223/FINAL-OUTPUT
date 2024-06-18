@@ -1,0 +1,49 @@
+import random
+
+def roll_dice(num_dice, num_sides):
+  """
+  Rolls the specified number of dice with the given number of sides.
+
+  Args:
+      num_dice: The number of dice to roll.
+      num_sides: The number of sides on each die.
+
+  Returns:
+      A list containing the results of each die roll.
+  """
+  rolls = []
+  for _ in range(num_dice):
+    rolls.append(random.randint(1, num_sides))
+  return rolls
+
+def play_dice_game():
+  """
+  Runs a single round of the dice rolling game.
+  """
+  while True:
+    try:
+      # Get user input for number of dice and sides
+      num_dice = int(input("How many dice do you want to roll? "))
+      num_sides = int(input("How many sides should each die have? "))
+      break
+    except ValueError:
+      print("Invalid input. Please enter integers for number of dice and sides.")
+
+  # Roll the dice and display results
+  rolls = roll_dice(num_dice, num_sides)
+  print(f"You rolled: {rolls}")
+  print(f"Total: {sum(rolls)}")
+
+def main():
+  """
+  Runs the main loop of the game, offering to play multiple rounds.
+  """
+  while True:
+    play_dice_game()
+    play_again = input("Roll again? (y/n): ").lower()
+    if play_again != "y":
+      print("Thanks for playing!")
+      break
+
+if __name__ == "__main__":
+  main()
