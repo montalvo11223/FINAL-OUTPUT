@@ -1,0 +1,43 @@
+import random
+
+def play_rock_paper_scissors():
+  """
+  Runs a single round of Rock-Paper-Scissors against the computer.
+  """
+  # Available options (user can choose by index)
+  options = ["rock", "paper", "scissors"]
+
+  # Get user's choice
+  user_choice = int(input("Enter 1 (rock), 2 (paper), or 3 (scissors): ")) - 1
+  if user_choice < 0 or user_choice > 2:
+    print("Invalid choice. Please enter 1, 2, or 3.")
+    return
+
+  # Generate computer's random choice
+  computer_choice = random.randint(0, 2)
+
+  # Determine winner
+  if user_choice == computer_choice:
+    print("It's a tie!")
+  elif (user_choice == 0 and computer_choice == 2) or (user_choice > computer_choice):
+    print("You win!")
+  else:
+    print("You lose.")
+
+  # Print the choices
+  print(f"You chose: {options[user_choice]}")
+  print(f"Computer chose: {options[computer_choice]}")
+
+def main():
+  """
+  Runs the main loop of the game, offering to play multiple rounds.
+  """
+  while True:
+    play_rock_paper_scissors()
+    play_again = input("Play again? (y/n): ").lower()
+    if play_again != "y":
+      print("Thanks for playing!")
+      break
+
+if __name__ == "__main__":
+  main()
