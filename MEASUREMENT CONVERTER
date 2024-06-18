@@ -1,0 +1,63 @@
+def convert(value, from_unit, to_unit):
+  """
+  Converts a value from one unit to another for length measurements.
+
+  Args:
+      value: The numerical value to be converted.
+      from_unit: The unit the value is currently in (e.g., "cm", "in").
+      to_unit: The unit to convert the value to (e.g., "m", "ft").
+
+  Returns:
+      The converted value and the corresponding unit symbol, or None if units are incompatible.
+  """
+  conversion_rates = {
+    "cm": 0.01,  # Convert cm to meters
+    "m": 100,    # Convert meters to cm
+    "in": 0.0254, # Convert inches to meters
+    "ft": 30.48,  # Convert feet to cm
+  }
+
+  # Check if units are for length measurement
+  if from_unit not in conversion_rates or to_unit not in conversion_rates:
+    return None
+
+  # Check if units are the same, avoid division by zero
+  if from_unit == to_unit:
+    return value, to_unit
+
+  # Perform conversion based on from_unit
+  if from_unit in ["cm", "m"]:
+    converted_value = value * conversion_rates[to_unit]
+  else:
+    converted_value = value / conversion_rates[from_unit]
+
+  return converted_value, to_unit
+
+def main():
+  """
+  The main function that runs the interactive measurement converter for length.
+  """
+  while True:
+    print("\nLength Measurement Converter")
+    print("-" * 30)
+
+    # Get user input for value and units
+    value = float(input("Enter the value to convert: "))
+    from_unit = input("Enter the unit you are converting from (cm, m, in, ft): ").lower()
+    to_unit = input("Enter the unit you want to convert to (cm, m, in, ft): ").lower()
+
+    # Perform conversion and display results
+    converted_value, to_unit = convert(value, from_unit, to_unit)
+    if converted_value is None:
+      print("Error: Unsupported units. Please use cm, m, in, or ft.")
+    else:
+      print(f"{value} {from_unit} is equal to {converted_value:.2f} {to_unit}")
+
+    # Ask user if they want to continue
+    play_again = input("Do you want to convert another measurement? (y/n): ").lower()
+    if play_again != "y":
+      print("Thanks for using the converter!")
+      break
+
+if __name__ == "__main__":
+  main()
